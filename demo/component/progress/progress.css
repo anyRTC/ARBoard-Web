@@ -1,0 +1,44 @@
+.progress {
+  width: 100%;
+  height: 4px;
+  padding: 20px 0;
+  background: #fff;
+  border-radius: 3px;
+  position: relative;
+}
+.progress .progress_dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #294bff;
+  position: absolute;
+  margin-top: -4px;
+  cursor: pointer;
+  border: 1px solid #fff;
+  box-shadow: 0px 0px 3px #294bff;
+  display: flex;
+  justify-content: center;
+}
+.progress .progress_dot:hover .tip {
+  transition: opacity 1s;
+  opacity: 1;
+  visibility: visible;
+}
+.progress .progress_dot:hover .tip_top {
+  top: -44px;
+}
+.progress .progress_bg {
+  width: 0px;
+  height: 4px;
+  background-color: #294bff;
+  border-radius: 3px;
+  position: absolute;
+}
+.progress .progress_bgpro {
+  width: 100%;
+  height: 4px;
+  background-color: #f0f0fc;
+  border-radius: 3px;
+  position: absolute;
+}
+/*# sourceMappingURL=progress.css.map */

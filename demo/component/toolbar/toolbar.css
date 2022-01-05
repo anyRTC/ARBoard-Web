@@ -1,0 +1,196 @@
+.tip {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s;
+  position: absolute;
+  padding: 6px 12px;
+  background-color: #5a5a66;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 12px;
+  user-select: none;
+  z-index: 20;
+}
+.tip::before {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  background: #5a5a66;
+  transform: rotate(45deg);
+  z-index: 10;
+}
+
+.tip_left {
+  left: 60px;
+  width: 100%;
+}
+.tip_left::before {
+  left: -4px;
+}
+
+.tip_top {
+  top: -36px;
+}
+.tip_top::before {
+  bottom: -4px;
+}
+
+.tip_bottom {
+  bottom: -36px;
+  width: 100%;
+}
+.tip_bottom::before {
+  top: -4px;
+}
+
+.toolbar {
+  background: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0px 2px 20px 0px rgba(192, 192, 205, 0.2);
+  padding: 8px 2px;
+}
+.toolbar .toolbar_tool {
+  position: relative;
+  padding: 2px 6px;
+}
+.toolbar .toolbar_tool .toolbar_tool_buton {
+  z-index: 40;
+  border-radius: 4px;
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.toolbar .toolbar_tool .toolbar_tool_buton .toolbar_tool_icon {
+  font-size: 20px;
+  opacity: 1;
+  color: #5a5a67;
+}
+.toolbar .toolbar_tool .toolbar_tool_buton .toolbar_tool_icon_activate {
+  color: #294bff;
+}
+.toolbar .toolbar_tool .toolbar_tool_buton:hover {
+  z-index: 40;
+  cursor: pointer;
+  background: #f5f6fa;
+}
+.toolbar .toolbar_tool .toolbar_tool_buton:hover .tip {
+  z-index: 40;
+  transition: opacity 1s;
+  opacity: 1;
+  visibility: visible;
+}
+.toolbar .toolbar_tool .toolbar_tool_detail {
+  z-index: 50;
+  transition: opacity 1s;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0px;
+  left: 60px;
+  background: #fff;
+  box-shadow: 0px 2px 20px 0px rgba(192, 192, 205, 0.2);
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  padding: 20px;
+  font-size: 12px;
+  color: #5a5a67;
+  user-select: none;
+}
+.toolbar .toolbar_tool .toolbar_tool_detail_visibility {
+  transition: opacity 1s;
+  opacity: 1;
+  visibility: visible;
+}
+.toolbar .toolbar_tool .toolbar_tool_color {
+  width: 100%;
+  height: 40px;
+}
+
+/* color */
+.colorinfo {
+  display: flex;
+  margin: 10px 0 0;
+  white-space: nowrap;
+}
+.colorinfo .colorlist {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  align-items: center;
+}
+.colorinfo .colorlist .color {
+  margin: 12px;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 1px solid #efefef;
+}
+.colorinfo .colorlist .color_active {
+  margin: 10px;
+  border: 2px solid #fff;
+  box-shadow: 0px 0px 2px 1px #294bff;
+}
+
+/* text */
+.detail_text {
+  cursor: pointer;
+  white-space: nowrap;
+  width: 100%;
+  padding: 6px 4px;
+  text-align: center;
+}
+.detail_text:hover {
+  background: #f5f6fa;
+}
+
+/* from */
+.form {
+  display: flex;
+}
+.form .form_button {
+  z-index: 50;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  padding: 4px;
+}
+.form .form_button:hover {
+  cursor: pointer;
+  background: #f5f6fa;
+  border-radius: 4px;
+}
+.form .form_button:hover .tip {
+  transition: opacity 1s;
+  opacity: 1;
+  visibility: visible;
+}
+.form .form_button:hover .tip_top {
+  top: -40px;
+  width: 100%;
+}
+.form .form_button .form_button_icon {
+  font-size: 20px;
+}
+.form .form_button .form_button_icon_active {
+  color: #294bff;
+}
+
+/* progress */
+.progressinfo {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+.progressinfo .progressinfo_text {
+  margin-right: 12px;
+}
+
+/*# sourceMappingURL=toolbar.css.map */

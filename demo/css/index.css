@@ -1,0 +1,333 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  user-select: none;
+}
+
+/*登录*/
+.login {
+  height: 100%;
+  background: #f5f6fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login .singin {
+  height: 432px;
+  display: flex;
+  border-radius: 4px;
+  background: #fff;
+  box-shadow: 0px 2px 20px 0 rgba(192, 192, 205, 0.2);
+}
+.login .singin .singin_bg {
+  width: 384px;
+  height: 100%;
+  background-image: url("../img/sigin_bg.png");
+  background-repeat: no-repeat;
+  background-color: #f9faff;
+}
+.login .singin .singin_write {
+  width: 324px;
+  padding: 80px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.login .singin .singin_write > h1 {
+  color: #1a1a1e;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.login .singin .singin_write .singin_form {
+  padding: 0 20px;
+}
+.login .singin .singin_write .singin_form .singin_form_item {
+  margin-bottom: 2px;
+  display: flex;
+  flex-direction: column;
+}
+.login .singin .singin_write .singin_form .singin_form_item .form_input {
+  height: 40px;
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom-color: #f3f3f3;
+  padding-left: 4px;
+  color: #5a5a67;
+  font-size: 14px;
+}
+.login .singin .singin_write .singin_form .singin_form_item .form_input:focus {
+  border-bottom-color: #c2ccff;
+}
+.login .singin .singin_write .singin_form .singin_form_item .form_input::-webkit-input-placeholder {
+  font-size: 14px;
+  color: #cccccc;
+}
+.login .singin .singin_write .singin_form .singin_form_item .form_input::-moz-placeholder {
+  font-size: 14px;
+  color: #cccccc;
+}
+.login .singin .singin_write .singin_form .singin_form_item .form_hint {
+  opacity: 0;
+  transition: opacity 1s;
+  bottom: 0;
+  margin-top: 4px;
+  font-size: 12px;
+  color: #fe001d;
+  cursor: context-menu;
+}
+.login .singin .singin_write .singin_form .singin_form_item .form_hint_show {
+  opacity: 1;
+  transition: opacity 1s;
+}
+.login .singin .singin_write .singin_submit {
+  background: #314bff;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 60px;
+  border-radius: 40px;
+  cursor: pointer;
+  user-select: none;
+}
+.login .singin .singin_write .singin_submit_hiddon {
+  background: #c0c0cd;
+}
+
+/*白板*/
+.board {
+  height: 100%;
+  /* 白板侧边栏 */
+  /* 白板相关操作 */
+  /* 用户行为 */
+}
+.board .sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.board .boardoperation {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  /* 撤销重做 */
+  /* 比例调整 */
+  /* 白板操作 */
+}
+.board .boardoperation .repeal {
+  margin: 0 10px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0px 2px 20px 0px rgba(192, 192, 205, 0.2);
+}
+.board .boardoperation .repeal .repeal_options {
+  margin: 0 10px;
+  padding: 4px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+}
+.board .boardoperation .repeal .repeal_options .iconfont {
+  font-size: 24px;
+  color: #5a5a67;
+}
+.board .boardoperation .repeal .repeal_options:hover {
+  cursor: pointer;
+  background: #f5f6fa;
+}
+.board .boardoperation .repeal .repeal_options:hover .tip {
+  margin: 0;
+  transition: opacity 1s;
+  opacity: 1;
+  visibility: visible;
+}
+.board .boardoperation .repeal .repeal_options:hover .tip_top {
+  top: -36px;
+}
+.board .boardoperation .ratio_adjust {
+  display: flex;
+  align-items: center;
+}
+.board .boardoperation .ratio_adjust .repeal_options {
+  margin: 0;
+}
+.board .boardoperation .ratio_adjust .ratio_value {
+  margin: 0 10px;
+  color: #5a5a67;
+}
+.board .boardoperation .board_operate {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+.board .boardoperation .board_operate .repeal_options {
+  margin: 0;
+}
+.board .boardoperation .board_operate .ratio_value {
+  margin: 0 10px;
+  color: #5a5a67;
+}
+.board .userbehavior {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+.board .userbehavior .userbehavior_button {
+  background: #fff;
+  display: flex;
+  box-shadow: 0px 2px 20px 0px rgba(192, 192, 205, 0.2);
+  padding: 6px 10px;
+  border-radius: 4px;
+  /* 用户邀请*/
+  /*用户离开*/
+}
+.board .userbehavior .userbehavior_button .user_invite {
+  position: relative;
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+}
+.board .userbehavior .userbehavior_button .user_invite .iconfont {
+  font-size: 24px;
+  color: #294bff;
+}
+.board .userbehavior .userbehavior_button .user_invite:hover {
+  cursor: pointer;
+  background: #f5f6fa;
+}
+.board .userbehavior .userbehavior_button .user_invite:hover .tip {
+  margin: 0;
+  transition: opacity 1s;
+  opacity: 1;
+  visibility: visible;
+}
+.board .userbehavior .userbehavior_button .user_invite:hover .tip_bottom {
+  bottom: -44px;
+}
+.board .userbehavior .userbehavior_button .user_live {
+  position: relative;
+  margin: 0 10px;
+  display: flex;
+  justify-content: center;
+}
+.board .userbehavior .userbehavior_button .user_live .iconfont {
+  font-size: 24px;
+  color: #fe001d;
+}
+.board .userbehavior .userbehavior_button .user_live:hover {
+  cursor: pointer;
+  background: #f5f6fa;
+}
+.board .userbehavior .userbehavior_button .user_live:hover .tip {
+  margin: 0;
+  transition: opacity 1s;
+  opacity: 1;
+  visibility: visible;
+}
+.board .userbehavior .userbehavior_button .user_live:hover .tip_bottom {
+  bottom: -44px;
+}
+.board .userbehavior .invite_copy {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s;
+  position: absolute;
+  top: 48px;
+  z-index: -50;
+  background: #fff;
+  box-shadow: 0px 2px 20px 0px rgba(192, 192, 205, 0.2);
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #c0c0cc;
+  user-select: none;
+}
+.board .userbehavior .invite_copy > h2 {
+  color: #1a1a1e;
+  font-size: 14px;
+  font-weight: 700;
+}
+.board .userbehavior .invite_copy .invite_layout {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.board .userbehavior .invite_copy .invite_layout > span {
+  white-space: nowrap;
+}
+.board .userbehavior .invite_copy .invite_layout .invite_layout_from {
+  margin-left: 14px;
+  display: flex;
+}
+.board .userbehavior .invite_copy .invite_layout .invite_layout_from .invite_layout_input {
+  border: 0;
+  background: #f5f6fa;
+  color: #5a5a66;
+  padding: 0 6px;
+}
+.board .userbehavior .invite_copy .invite_layout .invite_layout_from .invite_layout_i {
+  cursor: pointer;
+  margin-left: 8px;
+}
+.board .userbehavior .invite_copy .invite_layout .invite_layout_from .invite_layout_i > i {
+  font-size: 24px;
+  color: #294bff;
+}
+.board .userbehavior .invite_copy_show {
+  opacity: 1;
+  z-index: 50;
+  visibility: visible;
+  transition: opacity 1s;
+}
+
+.hide {
+  display: none;
+}
+
+/*遮罩层*/
+.mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: -100;
+}
+
+.mask_show {
+  z-index: 9999;
+}
+
+/* 禁用 */
+.disabled {
+  color: #C0C0CD !important;
+}
+
+/*# sourceMappingURL=index.css.map */

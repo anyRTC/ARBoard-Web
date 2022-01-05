@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>白板体验</title>
+    <!-- icon -->
+    <link rel="stylesheet" href="./icfont/iconfont.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="./js/config.js"></script>
+    <script src="./component/index.js"></script>
+    <script src="https://unpkg.com/ar-whiteboard"></script>
+    <script src="./js/untils.js"></script>
+    <!-- 白板相关操作 -->
+    <script src="./js/board.js"></script>
+    <script src="./js/index.js"></script>
+  </head>
+  <body>
+    <!-- 登录 -->
+    <div id="login" class="login">
+      <div class="singin">
+        <div class="singin_bg"></div>
+        <!--  -->
+        <div class="singin_write">
+          <h1>欢迎使用-anyRTC 互动白板</h1>
+          <!-- 用户表单 -->
+          <div class="singin_form">
+            <!-- 用户名 -->
+            <!--  onblur="userverify(document.querySelector('#form_item_user'))" -->
+            <div class="singin_form_item" id="form_item_user">
+              <input
+                id="userid"
+                class="form_input"
+                oninput="userverify(document.querySelector('#form_item_user'))"
+                type="text"
+                placeholder="用户名"
+              />
+              <span class="form_hint">用户名错误提示</span>
+            </div>
+            <!-- 房间号  maxlength="10"-->
+            <div class="singin_form_item" id="form_item_channel">
+              <input
+                id="channelid"
+                class="form_input"
+                oninput="channelverify(document.querySelector('#form_item_channel'))"
+                type="text"
+                placeholder="房间号"
+              />
+              <span class="form_hint">房间号错误提示</span>
+            </div>
+          </div>
+          <div class="singin_submit" id="joinChannel">立即加入</div>
+        </div>
+      </div>
+    </div>
+    <!-- 白板 -->
+    <div id="board" class="board hide">
+      <!-- 画板 -->
+      <div
+        id="myPainter"
+        style="width: 100%; height: 100%; background-color: #efefef"
+      ></div>
+      <!-- 白板工具栏 -->
+      <div class="sidebar">
+        <div id="ToolBarWhiteBoard"></div>
+      </div>
+
+      <!-- 白板操作 -->
+      <div class="boardoperation">
+        <!-- 撤销 重做 -->
+        <div class="repeal">
+          <div class="repeal_options" id="undo">
+            <div class="tip tip_top">撤销</div>
+            <i class="iconfont icon-undo"></i>
+          </div>
+          <div class="repeal_options" id="redo">
+            <div class="tip tip_top">重做</div>
+            <i class="iconfont icon-redo"></i>
+          </div>
+        </div>
+        <!-- 比例 -->
+        <div class="repeal">
+          <!-- 重置比例 -->
+          <div class="repeal_options" id="reset">
+            <div class="tip tip_top">重置比例</div>
+            <i class="iconfont icon-reset"></i>
+          </div>
+          <!-- 比例调整 -->
+          <div class="ratio_adjust">
+            <div class="repeal_options" id="minus">
+              <div class="tip tip_top">缩小</div>
+              <i class="iconfont icon-minus"></i>
+            </div>
+            <span class="ratio_value" id="adjust_vlue">100%</span>
+            <div class="repeal_options" id="plus">
+              <div class="tip tip_top">放大</div>
+              <i class="iconfont icon-plus"></i>
+            </div>
+          </div>
+        </div>
+        <!-- 白板分页 -->
+        <div class="repeal">
+          <div class="board_operate">
+            <!-- 添加白板 -->
+            <div class="repeal_options" id="add">
+              <div class="tip tip_top">添加白板</div>
+              <i class="iconfont icon-add_board"></i>
+            </div>
+            <!-- 删除白板 -->
+            <div class="repeal_options" id="delete">
+              <div class="tip tip_top">删除白板</div>
+              <i class="iconfont icon-add_board"></i>
+            </div>
+          </div>
+          <div class="board_operate">
+            <!-- 上一页 -->
+            <div class="repeal_options" id="prev">
+              <div class="tip tip_top">上一页</div>
+              <i class="iconfont icon-paging_left"></i>
+            </div>
+            <span class="ratio_value"
+              ><span id="curren">1</span>/<span id="total">1</span></span
+            >
+            <!-- 下一页 -->
+            <div class="repeal_options" id="next">
+              <div class="tip tip_top">下一页</div>
+              <i class="iconfont icon-right_arrow"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 邀请/离开 -->
+      <div class="userbehavior">
+        <div class="userbehavior_button">
+          <!-- 邀请 -->
+          <div class="user_invite" id="inviteuser">
+            <div class="tip tip_bottom">邀请</div>
+            <i class="iconfont icon-invite"></i>
+          </div>
+          <!-- 离开 -->
+          <div class="user_live" id="liveuser">
+            <div class="tip tip_bottom">离开</div>
+            <i class="iconfont icon-off"></i>
+          </div>
+        </div>
+        <!-- 邀请行为 -->
+        <div class="invite_copy" id="invite_copy">
+          <h2>邀请加入</h2>
+          <div class="invite_layout">
+            <span>房间号:</span>
+            <div class="invite_layout_from">
+              <input
+                class="invite_layout_input"
+                id="invitechannel"
+                value="123"
+                readonly
+                disabled
+              />
+              <div class="invite_layout_i" id="copychannel">
+                <i class="iconfont icon-copy"></i>
+              </div>
+            </div>
+          </div>
+          <div class="invite_layout">
+            <span>链接:</span>
+            <div class="invite_layout_from">
+              <input
+                class="invite_layout_input"
+                id="invitelink"
+                value="123"
+                readonly
+                disabled
+              />
+              <div class="invite_layout_i" id="copylink">
+                <i class="iconfont icon-copy"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- 遮罩层 -->
+    <div class="mask" id="mask"></div>
+  </body>
+
+  <!-- <script src="./js/component/toolbar.js"></script> -->
+</html>

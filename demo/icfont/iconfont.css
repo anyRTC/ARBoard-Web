@@ -1,0 +1,111 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 2901314 */
+  src: url('iconfont.woff2?t=1635919927201') format('woff2'),
+       url('iconfont.woff?t=1635919927201') format('woff'),
+       url('iconfont.ttf?t=1635919927201') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-paging_left:before {
+  content: "\e653";
+}
+
+.icon-more:before {
+  content: "\e618";
+}
+
+.icon-setting:before {
+  content: "\e617";
+}
+
+.icon-clear:before {
+  content: "\e616";
+}
+
+.icon-redo:before {
+  content: "\e615";
+}
+
+.icon-eraser:before {
+  content: "\e60e";
+}
+
+.icon-text:before {
+  content: "\e612";
+}
+
+.icon-undo:before {
+  content: "\e613";
+}
+
+.icon-select:before {
+  content: "\e614";
+}
+
+.icon-arrow:before {
+  content: "\e601";
+}
+
+.icon-add_board:before {
+  content: "\e602";
+}
+
+.icon-copy:before {
+  content: "\e603";
+}
+
+.icon-elipse:before {
+  content: "\e605";
+}
+
+.icon-invite:before {
+  content: "\e606";
+}
+
+.icon-default:before {
+  content: "\e607";
+}
+
+.icon-line:before {
+  content: "\e608";
+}
+
+.icon-laser:before {
+  content: "\e609";
+}
+
+.icon-minus:before {
+  content: "\e60a";
+}
+
+.icon-rect:before {
+  content: "\e60b";
+}
+
+.icon-plus:before {
+  content: "\e60c";
+}
+
+.icon-off:before {
+  content: "\e60d";
+}
+
+.icon-pen:before {
+  content: "\e60f";
+}
+
+.icon-right_arrow:before {
+  content: "\e610";
+}
+
+.icon-reset:before {
+  content: "\e611";
+}
+
