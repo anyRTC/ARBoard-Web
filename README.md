@@ -15,34 +15,84 @@ anyRTC 互动白板提供以下核心功能：
 |功能|描述|
 |--|--|
 | 互动白板 | 超低延时、实时互动、全球互联的白板房间，支持上传和展示多种格式的文件，提供丰富的白板操作工具，支持多人实时互动。 |
-| 白板录制和回放 | 支持云端高保真信令录制，实时记录白板上的所有操作、动态 PPT和自定义事件。支持多端回放，回放时支持前进、倒 |退、倍速播放，随时随地回看白板实时房间的全部内容。
+| 白板录制和回放 | 支持云端高保真信令录制，实时记录白板上的所有操作、动态 PPT和自定义事件。支持多端回放，回放时支持前进、倒退、倍速播放，随时随地回看白板实时房间的全部内容。 |
 | 文档转图片 | 静态文档转换，支持将 `PPT、PPTX、WORD、PDF` 等格式的文件转换成图片，丰富白板演示素材。 |
 | 文档转网页 | 动态文档转换，支持将 `PPTX` 转换成网页，保留原文件中的动画效果、音视频，帮助完整生动呈现信息。 |
 
-## 使用
+## 安装
 
-SDK 会在全局导出一个 **ArBoard** 对象，可以通过 `createBoard` 方法创建一个白板实例。一个白板实例代表一个白板客户端。
+### CDN 引入
 
-```html
-<body>
-  <div id="myBoard" style="width: 640px; height: 480px; background-color: #ffffff;"></div>
-</body>
+#### unpkg
+
 ```
+// 最新版本
+<script src="https://unpkg.com/ar-whiteboard"></script>
+// 指定版本
+<script src="https://unpkg.com/ar-whiteboard@VERSION"></script>
+```
+
+#### jsdelivr
+
+```
+// 最新版本
+<script src="https://cdn.jsdelivr.net/npm/ar-whiteboard"></script>
+// 指定版本
+<script src="https://cdn.jsdelivr.net/npm/ar-whiteboard@VERSION"></script>
+```
+
+### `npm` 引入
+
+#### 安装
+
+```bash
+npm install ar-whiteboard -D
+```
+#### 项目导入
 
 ```js
-/**
- * 创建一个客户端
- */
-const { createBoard } = ArWhiteBoard;
-const Board = createBoard('myBoard');
+import ArWhiteBoard from "ar-whiteboard";
+const board = new ArWhiteBoard(initParams);
 ```
 
-## API 概览
+## 类型模块（适用于 Typescript）
+
+对于 Typescript 开发者，我们提供了 `.d.ts` 文件导出详细的类型定义。
+
+```typescript
+import ArWhiteBoard, {
+  BoardToolType,
+  IArBoardInitBaseParams,
+  IArBoardInitParams,
+  IArBoardInitStyleParams,
+  IConfigParameters,
+} from "ar-whiteboard";
+
+const board = new ArWhiteBoard(initParams);
+```
+
+## 使用
+
+SDK 会在全局导出一个 **ArWhiteBoard** 对象，可以通过 `new` 方法创建一个白板实例。一个白板实例代表一个白板客户端。
+
+```js
+// 初始化配置
+const initConfig = {
+  id: '<DOM_ID>',
+  appId: '<APP_ID>',
+  userId: '<U_ID>',
+  channel: '<CHANNEL_ID>',
+  token: '<TOKEN>',
+};
+const Board = new ArWhiteBoard(initConfig);
+```
+
+## 概览
 
 **Board** 实例包含了以下方法：
 
 | **全局事件回调** |  |
-| :------------ | :------------ |
+| :------------ | :------------ | 
 | [add-board](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#add-board) | 添加白板页 |
 | [delete-board](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#delete-board) | 删除白板页 |
 | [goto-board](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#goto-board) | 白板页切换 |
@@ -56,8 +106,8 @@ const Board = createBoard('myBoard');
 | [connection-state-change](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#connection-state-change) | 网络状态回调 |
 | [board-background-color-change](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#board-background-color-change) | 背景颜色更改 |
 | **核心方法** |      |
-| [joinChannel](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#joinchannel) | 加入房间 |
-| [leaveChannel](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#leavechannel) | 离开房间 |
+| [new ArWhiteBoard](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board) | 白板构造函数，创建白板实例 |
+| [destroy](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#destroy) | 销毁白板实例 |
 | **涂鸦相关方法** |        |
 | [clear](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#clear) |  清空当前白板页数据。默认只清除当前白板页的涂鸦，如果 `clearBackground` 参数为 true，则同时清除涂鸦和背景。  |
 | [getBrushColor](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#getbrushcolor) |  获取画笔颜色。 |
