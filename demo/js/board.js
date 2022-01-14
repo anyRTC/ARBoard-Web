@@ -6,8 +6,15 @@
  */
 function boardCorrelation(userid, channelid, message) {
   // 白板
-  const board = ArWhiteBoard.createBoard();
-  window.board = board;
+  const board = new ArWhiteBoard({
+    id: "myPainter",
+    appId: boardSDKConfig.appid,
+    userId: userid,
+    channel: channelid,
+    // 私有云
+    serverParams: boardSDKConfig.setParameters,
+  });
+
   // 白板版本
   message.setOption({
     message: "白板当前版本:" + board.getVersion(),
@@ -16,24 +23,6 @@ function boardCorrelation(userid, channelid, message) {
   });
 
   console.log("白板当前版本", board.getVersion());
-  // 白板私有云配置
-  if (boardSDKConfig.setParameters) {
-    board.setParameters(boardSDKConfig.setParameters);
-  }
-
-  // 加入频道
-  board
-    .joinChannel("myPainter", {
-      appid: boardSDKConfig.appid,
-      uid: userid,
-      channel: channelid,
-    })
-    .then((res) => {
-      console.log("加入频道成功", res);
-    })
-    .catch((err) => {
-      console.log("加入频道失败", err);
-    });
 
   // 生成侧边工具栏
   var oSideBar = new ToolBar({
@@ -61,27 +50,23 @@ function boardCorrelation(userid, channelid, message) {
 
   /* 白板事件监听 */
   {
-    // 网络状态回调
-    board.on("connection-state-change", (authState, reason) => {
-      if (authState != 4) {
-        // 当前白板不可用,开启遮罩层
-        maskOptions(true, message);
-      } else {
-        // 关闭遮罩层
-        maskOptions(false);
-      }
-    });
-    // 白板数据存档
-    board.on("SYNC_DATA", (data) => {
-      console.log("BoardEvent.SYNC_DATA ", data);
-    });
     // 历史数据同步(仅初始时执行一次)
     board.on("data-sync-completed", () => {
+      maskOptions(false);
       Store = Object.assign(Store, boardInfo(board));
       console.log("历史数据同步", Store);
       disabledStyle("undo", false);
       disabledStyle("redo", false);
     });
+    // 网络状态回调
+    board.on("connection-state-change", (authState, reason) => {
+      console.log("网络状态回调", authState, reason);
+    });
+    // 白板数据存档
+    board.on("SYNC_DATA", (data) => {
+      console.log("BoardEvent.SYNC_DATA ", data);
+    });
+
     // 监听添加白板页
     board.on("add-board", (boardIds, fileId) => {
       // console.log("BoardEvent.ADD_BOARD ", fileId, boardIds);
