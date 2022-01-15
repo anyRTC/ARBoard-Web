@@ -255,7 +255,7 @@ function boardCorrelation(userid, channelid, message) {
   document.querySelector("#liveuser").onclick = function () {
     // 侧边栏销毁
     oSideBar.destroy();
-    board.leaveChannel();
+    board.destroy();
     // 回至登录页面
     pagetoggle(false);
     // 禁止遮罩层
