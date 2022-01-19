@@ -148,7 +148,6 @@ const Board = new ArWhiteBoard(initConfig);
 | [undo](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#undo) | 撤销画笔。 |
 | **其他方法** |      |
 | [getVersion](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#getversion) | 获取 SDK 版本。 |
-| [setParameters](https://docs.anyrtc.io/cn/WhiteBoard/api-ref/whiteboard_web/board#setparameters) | 自定义配置。 |
 
 ## 注意事项
 
