@@ -70,11 +70,21 @@ body {
 .login .singin .singin_write .singin_form .singin_form_item .form_input:focus {
   border-bottom-color: #c2ccff;
 }
-.login .singin .singin_write .singin_form .singin_form_item .form_input::-webkit-input-placeholder {
+.login
+  .singin
+  .singin_write
+  .singin_form
+  .singin_form_item
+  .form_input::-webkit-input-placeholder {
   font-size: 14px;
   color: #cccccc;
 }
-.login .singin .singin_write .singin_form .singin_form_item .form_input::-moz-placeholder {
+.login
+  .singin
+  .singin_write
+  .singin_form
+  .singin_form_item
+  .form_input::-moz-placeholder {
   font-size: 14px;
   color: #cccccc;
 }
@@ -113,6 +123,11 @@ body {
   /* 白板侧边栏 */
   /* 白板相关操作 */
   /* 用户行为 */
+}
+.board .board_myPainter {
+  width: 100%;
+  height: 100%;
+  background-color: #efefef;
 }
 .board .sidebar {
   position: fixed;
@@ -286,17 +301,33 @@ body {
   margin-left: 14px;
   display: flex;
 }
-.board .userbehavior .invite_copy .invite_layout .invite_layout_from .invite_layout_input {
+.board
+  .userbehavior
+  .invite_copy
+  .invite_layout
+  .invite_layout_from
+  .invite_layout_input {
   border: 0;
   background: #f5f6fa;
   color: #5a5a66;
   padding: 0 6px;
 }
-.board .userbehavior .invite_copy .invite_layout .invite_layout_from .invite_layout_i {
+.board
+  .userbehavior
+  .invite_copy
+  .invite_layout
+  .invite_layout_from
+  .invite_layout_i {
   cursor: pointer;
   margin-left: 8px;
 }
-.board .userbehavior .invite_copy .invite_layout .invite_layout_from .invite_layout_i > i {
+.board
+  .userbehavior
+  .invite_copy
+  .invite_layout
+  .invite_layout_from
+  .invite_layout_i
+  > i {
   font-size: 24px;
   color: #294bff;
 }
@@ -327,7 +358,7 @@ body {
 
 /* 禁用 */
 .disabled {
-  color: #C0C0CD !important;
+  color: #c0c0cd !important;
 }
 
 /*# sourceMappingURL=index.css.map */

@@ -1,4 +1,3 @@
-// var message = new Message();
 // 侧边工具栏
 class ToolBar {
   constructor(options) {
@@ -13,6 +12,7 @@ class ToolBar {
       // oToolBar.style.height = options.infolists.length * 40 + "px";
       this.board = options.board;
       this.toolbaar = oToolBar;
+      this.message = options.message;
       this.createSideBar(oToolBar, options.infolists);
     }
     const oBody = document.getElementsByTagName("body")[0];
@@ -222,6 +222,110 @@ class ToolBar {
           oCreateToolDetail.style.alignItems = "center";
           oCreateToolDetail.appendChild(oText);
           break;
+        case "input":
+          // 创建
+          const oInput = document.createElement("div");
+          oInput.className = "inputinfo";
+          oInput.onclick = function (e) {
+            // 停止冒泡行为
+            stopBubble(e);
+          };
+          if (detail.contenttext) {
+            const oCreateToolDetailColorText = document.createElement("div");
+            oCreateToolDetailColorText.textContent = detail.contenttext;
+            oInput.appendChild(oCreateToolDetailColorText);
+          }
+          // 创建输入框
+          const inputDivText = document.createElement("div");
+          inputDivText.style.display = "flex";
+          inputDivText.style.marginTop = "8px";
+          const inputText = document.createElement("input");
+          inputText.className = "inputinfo_input";
+          inputText.placeholder = detail.placeholder;
+          inputText.value = detail.defaulrvalue;
+          inputDivText.appendChild(inputText);
+          oInput.appendChild(inputDivText);
+
+          // 创建背景图片填充方式
+          if (detail.brushFn === "setBackgroundImage") {
+            const bgFillMode = document.createElement("div");
+            bgFillMode.className = "image_fill_mode";
+            const fillModeArray = ["cover", "contain", "fill"];
+            fillModeArray.forEach((item) => {
+              const oRadioDiv = document.createElement("div");
+              oRadioDiv.className = "image_fill_mode_radio";
+              const oRadio = document.createElement("input");
+              oRadio.style.marginRight = "6px";
+              oRadio.type = "radio";
+              oRadio.name = "FillMode";
+              oRadio.value = item;
+
+              if (item === detail.fillMode) {
+                oRadio.checked = true;
+              }
+
+              oRadioDiv.appendChild(oRadio);
+              oRadioDiv.appendChild(document.createTextNode(item));
+
+              bgFillMode.appendChild(oRadioDiv);
+            });
+
+            oInput.appendChild(bgFillMode);
+          }
+          // 创建添加按钮
+          const addButtonDiv = document.createElement("div");
+          addButtonDiv.className = "inputinfo_confirm";
+          const addButton = document.createElement("div");
+          addButton.className = "inputinfo_confirm_button";
+          addButton.textContent = detail.confirmtext;
+          addButton.onclick = async function (e) {
+            // 停止冒泡行为
+            stopBubble(e);
+            // 设置白板背景图片
+            if (detail.brushFn === "setBackgroundImage") {
+              try {
+                // 获取输入内容
+                const inputValue = inputText.value;
+
+                if (!inputValue) {
+                  _this.message.setOption({
+                    message: "获取输入背景图片地址",
+                    type: "error",
+                    duration: 2000,
+                  });
+                  return;
+                }
+                // 正则校验
+                const httpsTest = /(https):\/\/([\w.]+\/?)\S*/;
+                if (!httpsTest.test(inputValue)) {
+                  _this.message.setOption({
+                    message: "请输入https的图片地址",
+                    type: "error",
+                    duration: 2000,
+                  });
+                  return;
+                }
+
+                // 获取图片填充方式
+                const mode = await _this.backgroundImageRadio(true);
+                console.log("图片填充方式", mode);
+                await _this.board.setBackgroundImage(inputValue, mode);
+                _this.clearShow();
+              } catch (error) {
+                console.log("设置白板背景图片 err", error);
+                _this.message.setOption({
+                  message: "背景图片错误：" + error,
+                  type: "error",
+                  duration: 2000,
+                });
+              }
+            }
+          };
+          addButtonDiv.appendChild(addButton);
+          oInput.appendChild(addButtonDiv);
+
+          oCreateToolDetail.appendChild(oInput);
+          break;
         default:
           break;
       }
@@ -251,6 +355,13 @@ class ToolBar {
             case "form":
               // 形状(当前画笔形状)
               _this.formBrush(_this.board);
+              break;
+            case "input":
+              // 清空重置
+              _this.clearInput(item);
+              if (item.brushFn === "setBackgroundImage") {
+                _this.backgroundImageRadio(false, item);
+              }
               break;
             default:
               break;
@@ -360,6 +471,37 @@ class ToolBar {
       } else {
         oIcon.classList.remove("form_button_icon_active");
       }
+    }
+  }
+
+  // 背景图片填充方式(获取/清空)
+  backgroundImageRadio(isType = true, info) {
+    const radioList = document.getElementsByName("FillMode");
+    if (isType) {
+      let name = "";
+      // 获取
+      radioList.forEach((item) => {
+        if (item.checked) {
+          name = item.value;
+        }
+      });
+      return name;
+    } else {
+      // 清空
+      radioList.forEach((item) => {
+        if (item.value === info.fillMode) {
+          item.checked = true;
+        } else {
+          item.checked = false;
+        }
+      });
+    }
+  }
+  // 清除输入框内容(变更为默认地址)
+  clearInput(info) {
+    const oInputList = document.getElementsByClassName("inputinfo_input");
+    for (let index = 0; index < oInputList.length; index++) {
+      oInputList[index].value = info.defaulrvalue;
     }
   }
   // 所有显示效果清除

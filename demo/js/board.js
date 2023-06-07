@@ -13,6 +13,12 @@ function boardCorrelation(userid, channelid, message) {
     channel: channelid,
     // 私有云
     serverParams: boardSDKConfig.setParameters,
+    baseParams: {
+      // 白板显示比例
+      ratio: "3:4"
+    // 添加背景图片超时时间
+    //   imageResourceTimeout: 1000,
+    },
   });
 
   // 白板版本
@@ -29,6 +35,7 @@ function boardCorrelation(userid, channelid, message) {
     el: "ToolBarWhiteBoard",
     infolists: config_toolbar,
     board, // 白板 SDK
+    message,
   });
 
   // 显示遮罩层
@@ -62,11 +69,66 @@ function boardCorrelation(userid, channelid, message) {
     board.on("connection-state-change", (authState, reason) => {
       console.log("网络状态回调", authState, reason);
     });
+
+    // 白板背景图片加载状态
+    board.on("board-image-status-changed", (fileId, boardId, status, data) => {
+      console.log("白板背景图片加载状态", status, data);
+      switch (status) {
+        case 1:
+          message.setOption({
+            message: "背景图片加载中,请稍等",
+            type: "info",
+            duration: 2000,
+          });
+          break;
+        case 2:
+          message.setOption({
+            message: "背景图片加载完成",
+            type: "success",
+            duration: 2000,
+          });
+          break;
+        case 3:
+          message.setOption({
+            message: "背景图片加载中断",
+            type: "error",
+            duration: 2000,
+          });
+          break;
+        case 4:
+          message.setOption({
+            message: "背景图片加载错误,请再次设置",
+            type: "error",
+            duration: 2000,
+          });
+          break;
+        case 5:
+          message.setOption({
+            message: "背景图片加载超时,请再次设置",
+            type: "error",
+            duration: 2000,
+          });
+          break;
+        case 6:
+          message.setOption({
+            message: "背景图片取消加载",
+            type: "error",
+            duration: 2000,
+          });
+          break;
+        default:
+          break;
+      }
+    });
     // 白板数据存档
     board.on("SYNC_DATA", (data) => {
       console.log("BoardEvent.SYNC_DATA ", data);
     });
-
+    // 白板重置回调
+    board.on("reset-board", () => {
+      console.log("白板重置回调");
+      Store = Object.assign(Store, boardInfo(board));
+    });
     // 监听添加白板页
     board.on("add-board", (boardIds, fileId) => {
       // console.log("BoardEvent.ADD_BOARD ", fileId, boardIds);
@@ -81,6 +143,11 @@ function boardCorrelation(userid, channelid, message) {
     board.on("goto-board", (fileId, boardId) => {
       console.log("BoardEvent.GOTO_BOARD ", fileId, boardId);
       Store = Object.assign(Store, boardInfo(board));
+    });
+
+    // 白板清空回调
+    board.on("clear-board", (fileId, boardId, clearBackground) => {
+      console.log("白板清空回调", fileId, boardId, clearBackground);
     });
 
     // 当前白板缩放比例
@@ -110,19 +177,26 @@ function boardCorrelation(userid, channelid, message) {
       Store.redodecide = enable;
     });
 
-    board.on("board-error", (err) => {
-      // console.log("BoardEvent.ERROR ", err);
+    board.on("board-error", (err, errorMessage) => {
+      console.log("BoardEvent.ERROR ", err, errorMessage);
+      const errMessage = [
+        "",
+        "缺少参数",
+        "服务鉴权失败",
+        "历史数据同步失败",
+        "鉴权超时",
+      ];
       message.setOption({
-        message: err.message,
+        message: errMessage[err] || errorMessage,
         type: "error",
         duration: 2000,
       });
     });
 
-    board.on("board-warning", (err) => {
-      // console.log("BoardEvent.WARNING ", err);
+    board.on("board-warning", (err, errorMessage) => {
+      console.log("BoardEvent.WARNING ", err);
       message.setOption({
-        message: err.message,
+        message: errorMessage,
         type: "warning",
         duration: 2000,
       });
@@ -209,6 +283,7 @@ function boardCorrelation(userid, channelid, message) {
         });
       }
     };
+
     // 添加白板
     document.querySelector("#add").onclick = function () {
       board.addBoard();
@@ -225,6 +300,7 @@ function boardCorrelation(userid, channelid, message) {
         });
       }
     };
+
     // 上一页
     document.querySelector("#prev").onclick = function () {
       if (Store.prevdecide) {

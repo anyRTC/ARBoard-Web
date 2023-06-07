@@ -45,8 +45,10 @@ window.onload = function () {
       if (oUser && oChannel) {
         // 切换至白板
         pagetoggle();
+
         // 进入白板
         boardCorrelation(oUser, oChannel, message);
+
         // 生成房间
         document.querySelector("#invitechannel").value = oChannel;
         // 邀请房间复制

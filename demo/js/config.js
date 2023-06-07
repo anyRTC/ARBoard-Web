@@ -9,12 +9,12 @@ var boardSDKConfig = {
   appid: "",
   // 私有云配置
   // setParameters: {
-  //   ConfPriCloudAddr: {
-  //     // 公有云
-  //     ServerAdd: "wbgw.agrtc.cn",
-  //     Port: 443,
-  //     Wss: true,
-  //   },
+  // ConfPriCloudAddr: {
+  //   // 私有云
+  //   ServerAdd: "",
+  //   Port: 443,
+  //   Wss: true,
+  // },
   // },
 };
 
@@ -56,6 +56,11 @@ var brushColor = [
  *
  * *** form 类型（形状列表）
  * * detail: 形状列表
+ *
+ * *** input 类型（输入框）
+ * * defaulrvalue: 默认值
+ * * placeholder: input占位符
+ * * confirmtext: 确认文字更换
  *
  * */
 var config_toolbar = [
@@ -209,6 +214,15 @@ var config_toolbar = [
         detailcolor: brushColor,
         // defaultcolor: brushColor[0], // 背景默认颜色
         brushFn: "setBackgroundColor", // 白板对应方法
+      },
+      {
+        type: "input",
+        contenttext: "背景图片+填充模式",
+        defaulrvalue: "", // 默认背景图片地址
+        fillMode: "contain",
+        placeholder: "请输入图片地址(https开头)",
+        confirmtext: "确认",
+        brushFn: "setBackgroundImage",
       },
     ],
   },

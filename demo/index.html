@@ -5,14 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>白板体验</title>
+
     <!-- icon -->
     <link rel="stylesheet" href="./icfont/iconfont.css" />
     <link rel="stylesheet" href="./css/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/ar-whiteboard@latest/dist/board.css"
+    />
     <script src="./js/config.js"></script>
     <script src="./component/index.js"></script>
-    <script src="https://unpkg.com/ar-whiteboard"></script>
     <script src="./js/untils.js"></script>
+
     <!-- 白板相关操作 -->
+    <script src="https://unpkg.com/ar-whiteboard"></script>
     <script src="./js/board.js"></script>
     <script src="./js/index.js"></script>
   </head>
@@ -59,7 +65,7 @@
       <!-- 画板 -->
       <div
         id="myPainter"
-        style="width: 100%; height: 100%; background-color: #efefef"
+        class="board_myPainter"
       ></div>
       <!-- 白板工具栏 -->
       <div class="sidebar">
