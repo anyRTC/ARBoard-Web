@@ -15,9 +15,9 @@ function boardCorrelation(userid, channelid, message) {
     serverParams: boardSDKConfig.setParameters,
     baseParams: {
       // 白板显示比例
-      ratio: "3:4"
-    // 添加背景图片超时时间
-    //   imageResourceTimeout: 1000,
+      ratio: "16:9",
+      // 添加背景图片超时时间
+      //   imageResourceTimeout: 1000,
     },
   });
 
@@ -149,6 +149,14 @@ function boardCorrelation(userid, channelid, message) {
     board.on("clear-board", (fileId, boardId, clearBackground) => {
       console.log("白板清空回调", fileId, boardId, clearBackground);
     });
+    
+    // 当前白板宽高比例
+    board.on("board-ratio-change",(painterId, ratio) => {
+      console.log("当前白板宽高比例", ratio);
+      boardDataShow({
+        currentBoardRatio: ratio,
+      });
+    });
 
     // 当前白板缩放比例
     board.on("board-scale-change", (painterId, scale) => {
@@ -157,10 +165,7 @@ function boardCorrelation(userid, channelid, message) {
         currentBoardScale: scale,
       });
     });
-    // 当前白板宽高比例
-    // board.on("board-ratio-change", (painterId, ratio) => {
-    //   console.log("BoardEvent.RATIO_BOARD ", ratio);
-    // });
+
     // 当前白板是否可以撤销
     board.on("board-can-undo-status", (enable) => {
       // console.log("当前白板是否可以撤销",enable);
@@ -229,7 +234,23 @@ function boardCorrelation(userid, channelid, message) {
         });
       }
     };
-    // 比例重置
+    // 宽高比例设置
+    document.querySelector("#ratio").onclick = function () {
+      // 获取白板比例
+      const ratio = board.getBoardRatio();
+
+      const ratioValue = document.querySelector("#ratio_value");
+      console.log("---", ratio);
+      if (ratio == "4:3") {
+        board.setBoardRatio("16:9");
+        ratioValue.textContent = "16:9";
+      }
+      if (ratio == "16:9") {
+        board.setBoardRatio("4:3");
+        ratioValue.textContent = "4:3";
+      }
+    };
+    // 大小重置
     document.querySelector("#reset").onclick = function () {
       let scaleVal = board.getBoardScale();
       if (scaleVal !== 100) {
@@ -250,7 +271,7 @@ function boardCorrelation(userid, channelid, message) {
     document.querySelector("#minus").onclick = function () {
       // board && board.redo();
       let scaleVal = board.getBoardScale();
-      if (scaleVal - 10 > 90) {
+      if(scaleVal - 10 >= 100) {
         scaleVal -= 10;
         board.setBoardScale(scaleVal);
         // 更新页面数据
@@ -258,6 +279,11 @@ function boardCorrelation(userid, channelid, message) {
           currentBoardScale: scaleVal,
         });
       } else {
+        board.setBoardScale(100);
+        // 更新页面数据
+        boardDataShow({
+          currentBoardScale: 100,
+        });
         message.setOption({
           message: "当前白板页最小比例为 100%",
           type: "error",
@@ -268,7 +294,7 @@ function boardCorrelation(userid, channelid, message) {
     // 放大比例(最大300%)
     document.querySelector("#plus").onclick = function () {
       let scaleVal = board.getBoardScale();
-      if (scaleVal + 10 > 90 && scaleVal < 300) {
+      if (scaleVal + 10 <= 300) {
         scaleVal += 10;
         board.setBoardScale(scaleVal);
         // 更新页面数据
@@ -276,6 +302,11 @@ function boardCorrelation(userid, channelid, message) {
           currentBoardScale: scaleVal,
         });
       } else {
+        board.setBoardScale(300);
+        // 更新页面数据
+        boardDataShow({
+          currentBoardScale: 300,
+        });
         message.setOption({
           message: "当前白板页最大比例为 300%",
           type: "error",

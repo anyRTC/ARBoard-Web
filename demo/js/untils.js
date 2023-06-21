@@ -168,7 +168,8 @@ function maskOptions(toggle, message) {
  * 白板相关数据展示
  * currentPage 白板当前页数
  * totalPage 白板总页数
- * currentBoardScale 白板当前比例
+ * currentBoardScale 白板当前缩放比例
+ * currentBoardRatio 白板当前宽高比例
  */
 function boardDataShow(data) {
   // 白板当前页数
@@ -187,6 +188,9 @@ function boardDataShow(data) {
     disabledStyle("reset", data.currentBoardScale !== 100 ? true : false);
     disabledStyle("minus", data.currentBoardScale <= 100 ? false : true);
     disabledStyle("plus", data.currentBoardScale == 300 ? false : true);
+  }
+  if(data.currentBoardRatio) {
+    document.querySelector("#ratio_value").innerText = data.currentBoardRatio;
   }
 }
 
@@ -211,8 +215,6 @@ function disabledStyle(id, toggle = true) {
  */
 function boardInfo(board) {
   const fileInfo = board.getFileInfo(board.getCurrentFileId());
-  console.log("🚀 ~ file: untils.js ~ line 214 ~ boardInfo ~ fileInfo", fileInfo)
-
   const Store = {};
   // 判断是否可删除当前白板
   Store.deletedecide =
@@ -239,6 +241,8 @@ function boardInfo(board) {
     totalPage: fileInfo.totalPageCount,
     // 缩放比例
     currentBoardScale: board.getBoardScale(),
+    // 宽高比例
+    currentBoardRatio: board.getBoardRatio(),
   });
 
   return Store;

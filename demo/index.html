@@ -13,14 +13,6 @@
       rel="stylesheet"
       href="https://unpkg.com/ar-whiteboard@latest/dist/board.css"
     />
-    <script src="./js/config.js"></script>
-    <script src="./component/index.js"></script>
-    <script src="./js/untils.js"></script>
-
-    <!-- 白板相关操作 -->
-    <script src="https://unpkg.com/ar-whiteboard"></script>
-    <script src="./js/board.js"></script>
-    <script src="./js/index.js"></script>
   </head>
   <body>
     <!-- 登录 -->
@@ -63,10 +55,7 @@
     <!-- 白板 -->
     <div id="board" class="board hide">
       <!-- 画板 -->
-      <div
-        id="myPainter"
-        class="board_myPainter"
-      ></div>
+      <div id="myPainter" class="board_myPainter"></div>
       <!-- 白板工具栏 -->
       <div class="sidebar">
         <div id="ToolBarWhiteBoard"></div>
@@ -87,12 +76,17 @@
         </div>
         <!-- 比例 -->
         <div class="repeal">
-          <!-- 重置比例 -->
+          <!-- 白板比例 -->
+          <div class="repeal_options" id="ratio">
+            <div class="tip tip_top">白板比例(宽:高)</div>
+            <span id="ratio_value">16:9</span>
+          </div>
+          <!-- 重置缩放比例 -->
           <div class="repeal_options" id="reset">
-            <div class="tip tip_top">重置比例</div>
+            <div class="tip tip_top">重置缩放</div>
             <i class="iconfont icon-reset"></i>
           </div>
-          <!-- 比例调整 -->
+          <!-- 缩放比例调整 -->
           <div class="ratio_adjust">
             <div class="repeal_options" id="minus">
               <div class="tip tip_top">缩小</div>
@@ -191,5 +185,12 @@
     <div class="mask" id="mask"></div>
   </body>
 
-  <!-- <script src="./js/component/toolbar.js"></script> -->
+  <script src="./js/config.js"></script>
+  <script src="./component/index.js"></script>
+  <script src="./js/untils.js"></script>
+
+  <!-- 白板相关操作 -->
+  <script src="https://unpkg.com/ar-whiteboard"></script>
+  <script src="./js/board.js"></script>
+  <script src="./js/index.js"></script>
 </html>
